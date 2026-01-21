@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OBADA GAMES | Official Site</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <style>
+        :root {
+            --main-blue: #00d2ff;
+            --dark-blue: #004e92;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.1);
+            --neon-shadow: 0 0 15px rgba(0, 210, 255, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at center, #004e92 0%, #000428 100%);
+            color: var(--white);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* --- شاشة الدخول --- */
+        #login-screen {
+            position: fixed;
+            inset: 0;
+            background: #000428;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: 0.8s ease-in-out;
+        }
+
+        .login-box {
+            text-align: center;
+            padding: 40px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--main-blue);
+            border-radius: 20px;
+            box-shadow: var(--neon-shadow);
+        }
+
+        .login-box h1 { font-size: 2.5rem; margin-bottom: 20px; color: var(--main-blue); text-shadow: var(--neon-shadow); }
+
+        input[type="text"] {
+            padding: 12px 20px;
+            border-radius: 25px;
+            border: none;
+            outline: none;
+            width: 250px;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .btn-enter {
+            display: block;
+            margin: 0 auto;
+            padding: 10px 30px;
+            background: var(--main-blue);
+            color: #000;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        /* --- الموقع الرئيسي --- */
+        #main-content { display: none; padding: 20px; }
+
+        header {
+            text-align: center;
+            padding: 50px 0;
+        }
+
+        .logo-title {
+            font-size: 3.5rem;
+            letter-spacing: 5px;
+            background: linear-gradient(to right, #fff, var(--main-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse 2s infinite;
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        /* الأقسام */
+        section {
+            background: var(--glass);
+            margin-bottom: 30px;
+            padding: 25px;
+            border-radius: 15px;
+            border-right: 5px solid var(--main-blue);
+            backdrop-filter: blur(5px);
+            transition: 0.4s;
+        }
+
+        section:hover { transform: scale(1.02); }
+
+        h2 { margin-bottom: 20px; color: var(--main-blue); border-bottom: 1px solid #444; padding-bottom: 10px; }
+
+        /* أداة الترمكس */
+        .step-box {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .termux-img {
+            width: 100px;
+            margin: 10px 0;
+            filter: drop-shadow(0 0 5px var(--main-blue));
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: left;
+            direction: ltr;
+            overflow-x: auto;
+            position: relative;
+            margin: 15px 0;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: var(--main-blue);
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+            font-size: 0.8rem;
+        }
+
+        /* أزرار التواصل */
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .social-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            color: #333;
+            padding: 15px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .social-card.yt { border-left: 5px solid red; }
+        .social-card.tt { border-left: 5px solid black; }
+        .social-card.ds { border-left: 5px solid #7289da; }
+
+        .social-card:hover { transform: translateY(-5px); box-shadow: var(--neon-shadow); }
+
+        /* التنبيهات */
+        .note {
+            background: rgba(255, 166, 0, 0.2);
+            border-right: 5px solid orange;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        /* لوحة التحكم */
+        .admin-controls {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .btn-add {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        footer { text-align: center; padding: 40px; font-size: 0.8rem; opacity: 0.6; }
+
+        @keyframes pulse {
+            0% { opacity: 0.8; }
+            50% { opacity: 1; text-shadow: 0 0 20px var(--main-blue); }
+            100% { opacity: 0.8; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="login-screen">
+        <div class="login-box animate__animated animate__zoomIn">
+            <h1>OBADA GAMES</h1>
+            <p style="margin-bottom: 15px;">مرحباً بك في عالم الاحتراف</p>
+            <input type="text" id="username" placeholder="أدخل اسمك هنا...">
+            <button class="btn-enter" onclick="enterSite()">دخول الموقع</button>
+        </div>
+    </div>
+
+    <div id="main-content">
+        <header>
+            <h1 class="logo-title animate__animated animate__fadeInDown">OBADA GAMES</h1>
+            <p id="welcome-msg"></p>
+        </header>
+
+        <div class="container">
+            <section class="animate__animated animate__fadeInRight">
+                <h2><i class="fas fa-download"></i> تحميل أداة OBG V4</h2>
+                
+                <div class="step-box">
+                    <p><strong>1. الخطوة الأولى:</strong> تحميل تطبيق تيرموكس</p>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Termux_logo.png" class="termux-img" alt="Termux">
+                    <br>
+                    <a href="https://termux.ar.uptodown.com/android" target="_blank" class="btn-enter" style="text-decoration:none; display:inline-block;">تنزيل تيرموكس</a>
+                </div>
+
+                <div class="step-box">
+                    <p><strong>2. الخطوة الثانية:</strong> انسخ الكود وضعه في تيرموكس</p>
+                    <div class="code-block" id="code1">
+                        <button class="copy-btn" onclick="copyCode()">نسخ الكود</button>
+                        pkg update && pkg upgrade -y<br>
+                        pkg install git python -y<br>
+                        git clone https://github.com/Obadagamer/OBG-V.-4.git<br>
+                        cd OBG-V.-4<br>
+                        python obg_v4.py
+                    </div>
+                </div>
+
+                <div class="note">⚠️ ملاحظة: إذا لم يشتغل، جرب إعادة تشغيل الأوامر مرة ثانية وتأكد من جودة الإنترنت.</div>
+            </section>
+
+            <section class="animate__animated animate__fadeInLeft">
+                <h2><i class="fas fa-share-alt"></i> التواصل الاجتماعي</h2>
+                <div class="social-grid" id="social-list">
+                    <a href="https://youtube.com/@obadagameing?si=RknY_f_4Lvm3QFOU" target="_blank" class="social-card yt">
+                        <span><i class="fab fa-youtube"></i> YouTube</span>
+                        <span>زيارة</span>
+                    </a>
+                    <a href="https://www.tiktok.com/@om0g0?..." target="_blank" class="social-card tt">
+                        <span><i class="fab fa-tiktok"></i> TikTok</span>
+                        <span>زيارة</span>
+                    </a>
+                    <a href="https://discord.gg/d4mZBCRMFZ" target="_blank" class="social-card ds">
+                        <span><i class="fab fa-discord"></i> Discord</span>
+                        <span>انضمام</span>
+                    </a>
+                </div>
+                <div class="note">لأي مساعدة أو خطأ، تواصلوا معي عبر تيك توك.</div>
+                
+                <div class="admin-controls">
+                    <button class="btn-add" onclick="addNewLink('social-list')">+ إضافة رابط تواصل</button>
+                </div>
+            </section>
+
+            <section class="animate__animated animate__fadeInRight">
+                <h2><i class="fas fa-gamepad"></i> ألعاب OBADA GAMES</h2>
+                <div id="games-list">
+                    <p style="opacity: 0.5;">قريباً...</p>
+                </div>
+                <div class="admin-controls">
+                    <button class="btn-add" onclick="addNewLink('games-list')">+ إضافة لعبة</button>
+                </div>
+            </section>
+
+            <section class="animate__animated animate__fadeInLeft">
+                <h2><i class="fas fa-globe"></i> مواقع OBADA GAMES</h2>
+                <div id="sites-list">
+                    <p style="opacity: 0.5;">قريباً...</p>
+                </div>
+                <div class="admin-controls">
+                    <button class="btn-add" onclick="addNewLink('sites-list')">+ إضافة موقع</button>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            جميع الحقوق محفوظة لـ OBADA GAMES &copy; 2026
+        </footer>
+    </div>
+
+    <script>
+        let currentUser = "";
+
+        function enterSite() {
+            const name = document.getElementById('username').value;
+            if (name.trim() === "") {
+                alert("يرجى إدخال اسمك أولاً!");
+                return;
+            }
+
+            currentUser = name;
+            document.getElementById('login-screen').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+                document.getElementById('welcome-msg').innerText = "مرحباً بك، " + name;
+                
+                // تفعيل وضع الإدمن إذا كان الاسم المطلوب
+                if (name === "OBGV123") {
+                    activateAdmin();
+                }
+            }, 800);
+        }
+
+        function copyCode() {
+            const code = `pkg update && pkg upgrade -y
+pkg install git python -y
+git clone https://github.com/Obadagamer/OBG-V.-4.git
+cd OBG-V.-4
+python obg_v4.py`;
+            navigator.clipboard.writeText(code);
+            alert("تم نسخ الكود بنجاح!");
+        }
+
+        function activateAdmin() {
+            const controls = document.querySelectorAll('.admin-controls');
+            controls.forEach(el => el.style.display = 'block');
+            alert("نمط المطور مفعل! يمكنك إضافة عناصر الآن.");
+        }
+
+        function addNewLink(listId) {
+            const title = prompt("أدخل العنوان:");
+            const url = prompt("أدخل الرابط:");
+            if (title && url) {
+                const list = document.getElementById(listId);
+                if (list.querySelector('p')) list.querySelector('p').remove();
+                
+                const card = document.createElement('a');
+                card.href = url;
+                card.className = "social-card animate__animated animate__fadeInUp";
+                card.style.background = "#e3f2fd";
+                card.target = "_blank";
+                card.innerHTML = `<span><i class="fas fa-link"></i> ${title}</span><span>زيارة</span>`;
+                list.appendChild(card);
+            }
+        }
+    </script>
+</body>
+</html>
